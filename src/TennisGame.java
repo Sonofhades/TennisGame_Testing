@@ -53,23 +53,23 @@ public class TennisGame {
 	
 	public String getScore() {
 // Here is the format of the scores:
-// "love - love"
-// "15 - 15"
-// "30 - 30"
-// "deuce"
-// "15 - love", "love - 15"
-// "30 - love", "love - 30"
-// "40 - love", "love - 40"
-// "30 - 15", "15 - 30"
-// "40 - 15", "15 - 40"
-// "player1 has advantage"
-// "player2 has advantage"
-// "player1 wins"
-// "player2 wins"
-// testing push, why dont it do it.		
+// "love - love" 0-0
+// "15 - 15" 	 1-1
+// "30 - 30"	 2-2
+// "deuce"		 3-3
+// "15 - love", "love - 15" 1-0,0-1
+// "30 - love", "love - 30" 2-0,0-2
+// "40 - love", "love - 40" 3-0,0-3
+// "30 - 15", "15 - 30" 2-1,1-2
+// "40 - 15", "15 - 40" 3-1,1-3
+// "player1 has advantage" 4-3
+// "player2 has advantage" 3-4
+// "player1 wins" 4-0,4-1,4-2,5-3
+// "player2 wins" 0-4,1-4,2-4,3-5
+	
 			String player1Score = getScore(player1Points);
 			String player2Score = getScore(player2Points);
-			String kettujenkevat;
+			
 			if (gameEnded) {
 				if (player1Points > player2Points)
 					return "player1 wins";
@@ -77,15 +77,18 @@ public class TennisGame {
 					return "player2 wins";
 			}
 			
-			if (player1Points >= 4 && player1Points == player2Points)
-				return "deuce";
+			// original fails as 40-40 when both have scored 3 points because deuce is already at 3-3)
+			if (player1Points >= 3 && player1Points == player2Points)	
+			return "deuce";
 			
 			if (player1Points >= 4 && player1Points - player2Points == 1)
 				return "player1 has advantage";
 			
-			if (player2Points > 4 && player2Points - player1Points == 1)
+			// original was missing =, resulting in a 40-40 score instead of advantage being reported
+			if (player2Points >= 4 && player2Points - player1Points == 1)
 				return "player2 has advantage";							
 			
-			return  player2Score + " - " + player1Score ;
+			// testing found that player scores were listed in reverse order
+			return  player1Score + " - " + player2Score ;
 	}
 }
