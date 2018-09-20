@@ -66,10 +66,10 @@ public class TennisGame {
 // "player2 has advantage"
 // "player1 wins"
 // "player2 wins"
-		
+// testing push, why dont it do it.		
 			String player1Score = getScore(player1Points);
 			String player2Score = getScore(player2Points);
-			
+			String kettujenkevat;
 			if (gameEnded) {
 				if (player1Points > player2Points)
 					return "player1 wins";
